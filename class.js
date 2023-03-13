@@ -1,81 +1,256 @@
-'use strict'
-//random function between max and min input
-function getRandom(max, min) {
-    return Math.ceil(Math.random() * (max - min) + min);
-    // 0 >= random #  <= 1  * limit
-}
-
-const seattle = {
-    min: 23,
-    max: 65,
-    avg: 6.3,
-    location: 'Seattle',
-    hoursOfOperation: ["6am", "7am", "8am", "9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm"],
-    customersPerHour: function() {
-        console.log(this.max);
-        console.log(this.min);
-        return getRandom(this.max, this.min);
-    },
-    cookiesPerHour: [],
-    getCookies: function() {
-        for(let i = 0; i < this.hoursOfOperation.length; i++) {
-            console.log('seattle avg cookies/sale', this.avg);
-            console.log('seattle avg customers/hour', this.customersPerHour());
-            this.cookiesPerHour.push(Math.ceil(this.avg * this.customersPerHour()));
+let hours = ["6am", "7am", "8am", "9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm",]
+let Seattle = { 
+    min: 23, 
+    max: 65, 
+    avg: 6.3, //number of cookies sold per customer
+    numbers: [],
+    generateRandomCustomers: function(){
+        for(let i = 0; i < hours.length; i = i + 1) {
+            let randomNumberOfCustomers = Math.random() * (this.max - this.min) + this.min
+            randomNumberOfCustomers = Math.ceil(randomNumberOfCustomers)
+            this.numbers.push(randomNumberOfCustomers)
+            console.log("I am inside generateRandomCustomers")
+            
         }
-        return this.cookiesPerHour;
+        return this.numbers
     },
-    
+
+    calculateCookiesSold: function(){
+        let customersAtEachHour = this.generateRandomCustomers()
+        let cookiesSoldAtEachHour = []
+        for(let i = 0; i < customersAtEachHour.length; i++){
+         let numberOfCustomers = customersAtEachHour[i]     // i is placed in the array because it will constantly change as the loop continues
+         let cookiesSold = Math.ceil(numberOfCustomers * this.avg)     // Multiplying the number of customers per hour by number of cookies sold per customer
+          cookiesSoldAtEachHour.push(cookiesSold)
+        }
+        this.allCookiesSold = cookiesSoldAtEachHour
+    },
+    render: function(){
+        for (let i = 0; i < this.allCookiesSold.length; i++){
+            let listItem = document.createElement("li")
+            listItem.innerHTML = hours[i] + ":" + " " + this.allCookiesSold[i] + " " + "cookies"
+            let unorderedList = document.getElementById("seattle")
+            unorderedList.append(listItem)
+        }
+        let total = 0;
+        for (let i = 0; i < hours.length; i++){
+           total = this.numbers[i] + total;
+        } 
+        let totalCookies = document.createElement("li")
+        totalCookies.innerHTML = "Total" + ": " + total
+        let listOfTotalCookies = document.getElementById("seattle")
+        listOfTotalCookies.append(totalCookies)
+        // console.log(total)
+    } 
+
 }
-//object definition for a location
-    //---starting data
-        /*
-        Location	Min/Cust	Max/Cust	AvgCookie/Sale
-        Seattle	    23	        65	        6.3
-        */
-       
-    //----customers per hour
-        /*2. Use a method of that object to generate a 
-        random number of customers per hour. */
+Seattle.calculateCookiesSold()
+Seattle.render()
 
-    //---cookies per hour
-        /* 3. Calculate and store the simulated amounts of cookies 
-        purchased for each hour at each location using average 
-        cookies purchased and the random number of customers generated.*/
 
-    //customers per hour
-        /* 4. Store the results for each location in a separate array… 
-        perhaps as a property of the object representing that location. */
-    
 
-// 5. Display the values of each array as unordered lists in the browser.
-    /*
-    Calculating the sum of these hourly totals; your output for each location should look like this:
-*/
-    let hoursDemo = ["6am", "7am", "8am", "9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm"];
-    let cookieDemo = [152,265,202,353,227,221,202,378,171,309,215,189,189,385];
-    let hoursArray = document.querySelector('.output')
-    for(let i = 0; i < hoursDemo.length; i++) {
-        //hoursDemo[i].innerHTML
-        let variable = document.createElement("li");
-        variable.innerHTML = `${hoursDemo[i]}: ${cookieDemo[i]} cookies`;
-        hoursArray.append(variable);
-    }
-    /*
-    Seattle
-    6am: 16 cookies
-    7am: 20 cookies
-    8am: 35 cookies
-    9am: 48 cookies
-    10am: 56 cookies
-    11am: 77 cookies
-    12pm: 93 cookies
-    1pm: 144 cookies
-    2pm: 119 cookies
-    3pm: 84 cookies
-    4pm: 61 cookies
-    5pm: 23 cookies
-    6pm: 42 cookies
-    7pm: 57 cookies
-    Total: 875 cookies
-    */
+let Tokyo = { 
+    min: 3, 
+    max: 24, 
+    avg: 1.2, //number of cookies sold per customer
+    numbers: [],
+    generateRandomCustomers: function(){
+        for(let i = 0; i < hours.length; i = i + 1) {
+            let randomNumberOfCustomers = Math.random() * (this.max - this.min) + this.min
+            randomNumberOfCustomers = Math.ceil(randomNumberOfCustomers)
+            this.numbers.push(randomNumberOfCustomers)
+            console.log("I am inside generateRandomCustomers")
+            
+        }
+        return this.numbers
+    },
+
+    calculateCookiesSold: function(){
+        let customersAtEachHour = this.generateRandomCustomers()
+        let cookiesSoldAtEachHour = []
+        for(let i = 0; i < customersAtEachHour.length; i++){
+         let numberOfCustomers = customersAtEachHour[i]     // i is placed in the array because it will constantly change as the loop continues
+         let cookiesSold = Math.ceil(numberOfCustomers * this.avg)     // Multiplying the number of customers per hour by number of cookies sold per customer
+          cookiesSoldAtEachHour.push(cookiesSold)
+        }
+        this.allCookiesSold = cookiesSoldAtEachHour
+    },
+    render: function(){
+        for (let i = 0; i < this.allCookiesSold.length; i++){
+            let listItem = document.createElement("li")
+            listItem.innerHTML = hours[i] + ":" + " " + this.allCookiesSold[i] + " " + "cookies"
+            let unorderedList = document.getElementById("tokyo")
+            unorderedList.append(listItem)
+        }
+        let total = 0;
+        for (let i = 0; i < hours.length; i++){
+           total = this.numbers[i] + total;
+        } 
+        let totalCookies = document.createElement("li")
+        totalCookies.innerHTML = "Total" + ": " + total
+        let listOfTotalCookies = document.getElementById("tokyo")
+        listOfTotalCookies.append(totalCookies)
+        // console.log(total)
+    } 
+
+}
+Tokyo.calculateCookiesSold()
+Tokyo.render()
+
+
+
+let Dubai = { 
+    min: 11, 
+    max: 38, 
+    avg: 3.7, //number of cookies sold per customer
+    numbers: [],
+    generateRandomCustomers: function(){
+        for(let i = 0; i < hours.length; i = i + 1) {
+            let randomNumberOfCustomers = Math.random() * (this.max - this.min) + this.min
+            randomNumberOfCustomers = Math.ceil(randomNumberOfCustomers)
+            this.numbers.push(randomNumberOfCustomers)
+            console.log("I am inside generateRandomCustomers")
+            
+        }
+        return this.numbers
+    },
+
+    calculateCookiesSold: function(){
+        let customersAtEachHour = this.generateRandomCustomers()
+        let cookiesSoldAtEachHour = []
+        for(let i = 0; i < customersAtEachHour.length; i++){
+         let numberOfCustomers = customersAtEachHour[i]     // i is placed in the array because it will constantly change as the loop continues
+         let cookiesSold = Math.ceil(numberOfCustomers * this.avg)     // Multiplying the number of customers per hour by number of cookies sold per customer
+          cookiesSoldAtEachHour.push(cookiesSold)
+        }
+        this.allCookiesSold = cookiesSoldAtEachHour
+    },
+    render: function(){
+        for (let i = 0; i < this.allCookiesSold.length; i++){
+            let listItem = document.createElement("li")
+            listItem.innerHTML = hours[i] + ":" + " " + this.allCookiesSold[i] + " " + "cookies"
+            let unorderedList = document.getElementById("dubai")
+            unorderedList.append(listItem)
+        }
+        let total = 0;
+        for (let i = 0; i < hours.length; i++){
+           total = this.numbers[i] + total;
+        } 
+        let totalCookies = document.createElement("li")
+        totalCookies.innerHTML = "Total" + ": " + total
+        let listOfTotalCookies = document.getElementById("dubai")
+        listOfTotalCookies.append(totalCookies)
+        // console.log(total)
+    } 
+
+}
+Dubai.calculateCookiesSold()
+Dubai.render()
+
+
+
+
+let Paris = { 
+    min: 20, 
+    max: 38, 
+    avg: 2.3, //number of cookies sold per customer
+    numbers: [],
+    generateRandomCustomers: function(){
+        for(let i = 0; i < hours.length; i = i + 1) {
+            let randomNumberOfCustomers = Math.random() * (this.max - this.min) + this.min
+            randomNumberOfCustomers = Math.ceil(randomNumberOfCustomers)
+            this.numbers.push(randomNumberOfCustomers)
+            console.log("I am inside generateRandomCustomers")
+            
+        }
+        return this.numbers
+    },
+
+    calculateCookiesSold: function(){
+        let customersAtEachHour = this.generateRandomCustomers()
+        let cookiesSoldAtEachHour = []
+        for(let i = 0; i < customersAtEachHour.length; i++){
+         let numberOfCustomers = customersAtEachHour[i]     // i is placed in the array because it will constantly change as the loop continues
+         let cookiesSold = Math.ceil(numberOfCustomers * this.avg)     // Multiplying the number of customers per hour by number of cookies sold per customer
+          cookiesSoldAtEachHour.push(cookiesSold)
+        }
+        this.allCookiesSold = cookiesSoldAtEachHour
+    },
+    render: function(){
+        for (let i = 0; i < this.allCookiesSold.length; i++){
+            let listItem = document.createElement("li")
+            listItem.innerHTML = hours[i] + ":" + " " + this.allCookiesSold[i] + " " + "cookies"
+            let unorderedList = document.getElementById("paris")
+            unorderedList.append(listItem)
+        }
+        let total = 0;
+        for (let i = 0; i < hours.length; i++){
+           total = this.numbers[i] + total;
+        } 
+        let totalCookies = document.createElement("li")
+        totalCookies.innerHTML = "Total" + ": " + total
+        let listOfTotalCookies = document.getElementById("paris")
+        listOfTotalCookies.append(totalCookies)
+        // console.log(total)
+    } 
+
+}
+Paris.calculateCookiesSold()
+Paris.render()
+
+
+
+let Lima = { 
+    min: 2, 
+    max: 16, 
+    avg: 4.6, //number of cookies sold per customer
+    numbers: [],
+    generateRandomCustomers: function(){
+        for(let i = 0; i < hours.length; i = i + 1) {
+            let randomNumberOfCustomers = Math.random() * (this.max - this.min) + this.min
+            randomNumberOfCustomers = Math.ceil(randomNumberOfCustomers)
+            this.numbers.push(randomNumberOfCustomers)
+            console.log("I am inside generateRandomCustomers")
+            
+        }
+        return this.numbers
+    },
+
+    calculateCookiesSold: function(){
+        let customersAtEachHour = this.generateRandomCustomers()
+        let cookiesSoldAtEachHour = []
+        for(let i = 0; i < customersAtEachHour.length; i++){
+         let numberOfCustomers = customersAtEachHour[i]     // i is placed in the array because it will constantly change as the loop continues
+         let cookiesSold = Math.ceil(numberOfCustomers * this.avg)     // Multiplying the number of customers per hour by number of cookies sold per customer
+          cookiesSoldAtEachHour.push(cookiesSold)
+        }
+        this.allCookiesSold = cookiesSoldAtEachHour
+    },
+    render: function(){
+        for (let i = 0; i < this.allCookiesSold.length; i++){
+            let listItem = document.createElement("li")
+            listItem.innerHTML = hours[i] + ":" + " " + this.allCookiesSold[i] + " " + "cookies"
+            let unorderedList = document.getElementById("lima")
+            unorderedList.append(listItem)
+        }
+        let total = 0;
+        for (let i = 0; i < hours.length; i++){
+           total = this.numbers[i] + total;
+        } 
+        let totalCookies = document.createElement("li")
+        totalCookies.innerHTML = "Total" + ": " + total
+        let listOfTotalCookies = document.getElementById("lima")
+        listOfTotalCookies.append(totalCookies)
+        // console.log(total)
+    } 
+
+}
+Lima.calculateCookiesSold()
+Lima.render()
+
+
+// Seattle.generateRandomCustomers()
+// let Tokyo = {min:3, max:24, avg:1.2}
+// let Dubai = {min:11, max:38, avg:3.7}
+// let Paris = {min:20, max:38, avg:2.3}
+// let Lima = {min:2, max:16, avg:4.6}
